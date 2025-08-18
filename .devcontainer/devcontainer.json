@@ -1,0 +1,27 @@
+{
+    "name": "nightingale",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-toolsai.jupyter",
+                "ms-toolsai.jupyter-keymap",
+                "ms-toolsai.jupyter-renderers",
+                "ms-toolsai.datawrangler",
+                "ms-python.vscode-pylance",
+                "charliermarsh.ruff",
+                "github.copilot"
+            ],
+            "settings": {
+                // Enable interactive window mode
+                "jupyter.interactiveWindow.textEditor.executeSelection": true
+                }
+        }
+    },
+    "postCreateCommand": "pip install -r requirements.txt && echo 'nightingale dev container is ready!'"
+}
+
