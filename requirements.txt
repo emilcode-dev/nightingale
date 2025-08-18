@@ -1,0 +1,13 @@
+pandas
+
+ipykernel
+tensorflow
+tflite-runtime
+
+numpy
+scipy
+scikit-learn
+
+ipywidgets
+matplotlib
+seaborn
