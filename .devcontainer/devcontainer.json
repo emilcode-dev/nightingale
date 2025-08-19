@@ -22,6 +22,6 @@
                 }
         }
     },
-    "postCreateCommand": "pip install -r requirements.txt && echo 'nightingale dev container is ready!'"
+    "postCreateCommand": "echo 'nightingale dev container is ready!'"
 }
 
