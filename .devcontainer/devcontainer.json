@@ -14,7 +14,8 @@
                 "ms-toolsai.datawrangler",
                 "ms-python.vscode-pylance",
                 "charliermarsh.ruff",
-                "github.copilot"
+                "github.copilot",
+                "ms-vsliveshare.vsliveshar"
             ],
             "settings": {
                 // Enable interactive window mode
