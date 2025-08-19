@@ -15,7 +15,7 @@
                 "ms-python.vscode-pylance",
                 "charliermarsh.ruff",
                 "github.copilot",
-                "ms-vsliveshare.vsliveshar"
+                "ms-vsliveshare.vsliveshare"
             ],
             "settings": {
                 // Enable interactive window mode
