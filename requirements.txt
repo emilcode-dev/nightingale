@@ -1,13 +1,13 @@
-pandas
-
-ipykernel
-tensorflow
-tflite-runtime
-
 numpy
-scipy
-scikit-learn
-
-ipywidgets
-matplotlib
-seaborn
+scipy       # pip installiert automatisch aktuelle stabile Version
+pandas      # idem
+scikit-learn  # idem
+matplotlib    # idem
+seaborn       # idem
+ipykernel     # idem
+ipywidgets    # idem
+tensorflow
+tensorflow_io
+tensorflow-hub
+tflite-runtime
+pydub         # pip installiert automatisch aktuelle stabile Version
