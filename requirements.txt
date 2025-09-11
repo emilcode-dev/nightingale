@@ -11,3 +11,4 @@ tensorflow_io
 tensorflow-hub
 tflite-runtime
 pydub         # pip installiert automatisch aktuelle stabile Version
+mlflow
