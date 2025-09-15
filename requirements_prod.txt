@@ -1,0 +1,5 @@
+tensorflow
+tensorflow-hub
+fastapi
+uvicorn
+python-multipart

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nightingale Bird Classifier</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+  <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
+    <h1 class="text-2xl font-bold text-gray-800 mb-4 text-center">Nightingale Bird Classifier</h1>
+    <p class="text-gray-600 mb-6 text-center">Upload a .wav file to identify the bird species</p>
+    
+    <form id="uploadForm" class="space-y-4">
+      <input 
+        type="file" 
+        id="fileInput" 
+        accept=".wav" 
+        required
+        class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-gray-100 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <button 
+        type="submit" 
+        class="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg shadow hover:bg-blue-700 transition"
+      >
+        Predict
+      </button>
+    </form>
+
+    <div id="result" class="mt-6 text-center text-lg font-medium text-gray-800 hidden">
+      <!-- Prediction will show here -->
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("uploadForm");
+    const fileInput = document.getElementById("fileInput");
+    const resultDiv = document.getElementById("result");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      resultDiv.classList.add("hidden");
+      resultDiv.textContent = "Predicting...";
+
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await fetch("/predict/", {  // instead of http://localhost:8000
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.detail || "Prediction failed");
+        }
+
+        const data = await response.json();
+        resultDiv.textContent = "🕊️ Predicted Bird: " + data["Inferred class"];
+      } catch (err) {
+        resultDiv.textContent = "❌ Error: " + err.message;
+      }
+
+      resultDiv.classList.remove("hidden");
+    });
+  </script>
+</body>
+</html>
