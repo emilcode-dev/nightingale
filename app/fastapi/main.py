@@ -1,15 +1,26 @@
 import tensorflow as tf
 import tensorflow_hub as hub
 from fastapi import FastAPI, UploadFile, File, HTTPException
+import mlflow
 # from fastapi.responses import FileResponse
 # from fastapi.staticfiles import StaticFiles
 # from pathlib import Path
 # from nightingale.model.bird_call_classifier import BirdCallClassifier
 from nightingale.model.classifier_head import ClassifierHead
 
-    
 yamnet_model = hub.load('https://tfhub.dev/google/yamnet/1')
-classifier_head = tf.keras.models.load_model('bird_classifier_head.keras')
+
+# Load model of classifier head from ml flow registry
+model_name = 'Reg-Bird-Call-Classifier-Head'
+model_version_alias = "challenger"
+TRACKING_URI_LOCAL = "http://host.docker.internal:5757"
+mlflow.set_tracking_uri(TRACKING_URI_LOCAL)
+
+# Get the model version using a model URI
+model_uri = f"models:/{model_name}@{model_version_alias}"
+classifier_head = mlflow.keras.load_model(model_uri)
+
+# classifier_head = tf.keras.models.load_model('bird_classifier_head.keras')
 bird_classes = ['Intermediate Egret', 'Common Hawk-Cuckoo', "Tickell's Leaf Warbler"]  # Example classes
 
 app = FastAPI(title='Nightingale Bird Classifier API')
