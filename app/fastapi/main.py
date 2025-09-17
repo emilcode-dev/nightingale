@@ -2,9 +2,9 @@ import tensorflow as tf
 import tensorflow_hub as hub
 from fastapi import FastAPI, UploadFile, File, HTTPException
 import mlflow
-# from fastapi.responses import FileResponse
-# from fastapi.staticfiles import StaticFiles
-# from pathlib import Path
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 # from nightingale.model.bird_call_classifier import BirdCallClassifier
 from nightingale.model.classifier_head import ClassifierHead
 
@@ -25,9 +25,9 @@ bird_classes = ['Intermediate Egret', 'Common Hawk-Cuckoo', "Tickell's Leaf Warb
 
 app = FastAPI(title='Nightingale Bird Classifier API')
 
-# # Serve static files (frontend)
-# BASE_DIR = Path(__file__).resolve().parent
-# app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
+# Serve static files (frontend)
+BASE_DIR = Path(__file__).resolve().parent
+app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 
 # # By using @app.get("/") you are allowing the GET method to work for the / endpoint.
 @app.get("/")
