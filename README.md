@@ -68,4 +68,23 @@ TODO
 * terraform deployment on cloud
 * consider security aspects of application, eg user and attack surface of production container (check devops on geeks4geeks)
 * Kubernetes
+* describe the URI for the tracking server somewhere else than in the python scripts.
+* create a config file for the hyperparameters
+* Integrate ONNX 
+* Check usage of Kubeflow
+
+Idea for edge:
+
+Data relevance & quality:
+Spacial:
+* Train the model used for edge deployment with the bird species that are most likely to occur in the geographic region of the location the edge device will be deployed. 
+
+Temporal:
+* different seasons come with different species as some birds migrate and some birds don't. Or just marginalize that temporal component out by using the data of one yearly cycle
+
+Data Lifecycle:
+* Do the types of species in a specific region change over time? E.g. due to climate change or other environmental impacts that make them migrate permanentely
+* Perhaps it could also be beneficial to deploy a model on the edge in a specific location and have it predict the species it has been trained on and a class for species that are not part of the species it has be trained on --> all other possible sounds or species.
+These outcomes could be sent to a server and be classified by a huge net, that knows much more or even all species around the world. Then these predictions together with the uploaded inputs could be used to retrain/update the deployed model at the location the data was recorded, that could help with data drift in general.
+* Obtain background noise or in general other sounds to augment the data used to train the specific models.
 
