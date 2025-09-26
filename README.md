@@ -2,13 +2,67 @@
   <img src="doc/nightingale_logo.png" alt="Nightingale Logo" width="200"/>
 </p>
 
-!Disclaimer: This Repository is still in the making and is meant to become a bird call classification app for the edge.
+# Nightingale - Discover birds by sound!
+
+TODO: Tagline here
+
+A lightweight, real-time bird call classifier with a sleek web app, ready for EDGE deployment and instant audio recognition anywhere.
+
+## 📖 Overview
+
+❗❗ This is a recently kicked off project and a work in progress. It is meant to become a bird call recognition app that can both run on the cloud and on the edge eventually. ❗❗
+
+## 🎥 Screenshot
+
+The following image depicts a screenshot of the current web application hosted locally.
+
+(There will be a link to the web application here as soon as it has been pushed to the cloud.)
+
+<p align="center">
+  <img src="doc/webpage_screenshot.png" alt="Webpage Screenshot" width="800"/>
+</p>
+
+## ⚙️ Installation
+
+### Prerequisites
+
+* Git
+* Docker Desktop
+* MLflow
+* VS Code 
+* Within VS Code install the extention Dev Containers (ms-vscode-remote.remote-containers)
 
 
-# Run example deployment of nightingale bird call classifier on localhost
 
+### Steps
+
+```bash
+# Clone the repository
+git clone https://github.com/emilcode-dev/nightingale
+
+# Navigate to the project folder
+cd nightingale
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+---
+
+## 🚀 Usage
+
+### Load data
+In this current moment the data pipeline is not ready yet. Data is preprocessed and stored locally. 😬
+
+### Train model
+Open and run notebooks/train_nightingale.ipynb.
+
+### Run example deployment of nightingale bird call classifier on localhost
+
+```bash
 cd app/fastapi
 uvicorn main:app --reload --host 127.0.0.1 --port 8000
+```
 
 ( or uvicorn app.fastapi.main:app --reload --host 127.0.0.1 --port 8000, but for that the import of the classifier_head model has to be done relativ e to the path etc. )
 
@@ -52,39 +106,56 @@ On windows:
     mlflow server --host 0.0.0.0 --port 5757
     ```
 
-# connect to ml flow server from within the dev container
+<!-- ## 📡 API / Features
 
-TODO
-* pin python version
-* define dev and production dependencies in pyproject.toml
-* setup local ml flow tracking server
-* load model from versioned model artifacts on tracking server/registry of ml flow
-* clean repo
-* add textual content and visually appealing content to readme
-* sphinx documentation
-* pytests
-* create multi stage docker container
-* implement CI/CD for build, test and deployments on github actions
-* terraform deployment on cloud
-* consider security aspects of application, eg user and attack surface of production container (check devops on geeks4geeks)
-* Kubernetes
-* describe the URI for the tracking server somewhere else than in the python scripts.
-* create a config file for the hyperparameters
-* Integrate ONNX 
-* Check usage of Kubeflow
+*Describe the core modules, endpoints, or features.*
 
-Idea for edge:
+* Feature 1
+* Feature 2
+* Feature 3
 
-Data relevance & quality:
-Spacial:
-* Train the model used for edge deployment with the bird species that are most likely to occur in the geographic region of the location the edge device will be deployed. 
+--- -->
 
-Temporal:
-* different seasons come with different species as some birds migrate and some birds don't. Or just marginalize that temporal component out by using the data of one yearly cycle
+## 🤝 Contributing
 
-Data Lifecycle:
-* Do the types of species in a specific region change over time? E.g. due to climate change or other environmental impacts that make them migrate permanentely
-* Perhaps it could also be beneficial to deploy a model on the edge in a specific location and have it predict the species it has been trained on and a class for species that are not part of the species it has be trained on --> all other possible sounds or species.
-These outcomes could be sent to a server and be classified by a huge net, that knows much more or even all species around the world. Then these predictions together with the uploaded inputs could be used to retrain/update the deployed model at the location the data was recorded, that could help with data drift in general.
-* Obtain background noise or in general other sounds to augment the data used to train the specific models.
+Contributions are welcome! 🎉
 
+1. Fork the project and clone it
+2. Create a new branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'Add new feature'`)
+4. Push to your branch (`git push origin feature/your-feature`)
+5. Open a Pull Request
+
+Contributors: Ephraim Eckl, David Pellhammer
+
+<!-- ## 🧪 Testing
+
+```bash
+# Run tests
+npm test   # or pytest
+``` -->
+
+## 🛣 Roadmap
+
+* [x] Setup local MLflow tracking server
+* [ ] Setup remote MLflow tracking server in the cloud
+* [ ] Setup Github actions pipeline
+* [ ] Use DVC for data versioning
+* [ ] Integrate ONNX
+* [ ] IaC with Terraform
+* [ ] Container orchestration with K8s
+* [ ] Consider aspects of DevSecOps
+
+<!-- ## 📝 Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for version history.
+ -->
+
+## 📜 License
+
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgements
+* [YAMNet](https://github.com/tensorflow/models/tree/master/research/audioset/yamnet)
+
+<!-- ## 📬 Contact -->
