@@ -2,89 +2,160 @@
   <img src="doc/nightingale_logo.png" alt="Nightingale Logo" width="200"/>
 </p>
 
-!Disclaimer: This Repository is still in the making and is meant to become a bird call classification app for the edge.
+# Nightingale - Discover birds by sound!
+
+TODO: Tagline here
+
+A lightweight, real-time bird call classifier with a sleek web app, ready for EDGE deployment and instant audio recognition anywhere.
+
+## 📖 Overview
+
+❗❗ This is a recently kicked off project and a work in progress. It is meant to become a bird call recognition app that can both run on the cloud and on the edge eventually. ❗❗
+
+## Getting Started
+
+The following sections show which tools need to be installed, how to download the example data and model, how to run an MLflow tracking server with the downloaded model locally and shwo how to run the dockerized application.
+
+### Prerequisites
+
+* Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+* Docker Desktop: https://www.docker.com/products/docker-desktop/
+* MLflow:
+```bash
+# Install mlflow locally
+pip install mlflow
+```
+On Windows, if not already done, add the folder with the mlflow.exe to the environment variable path. The location of the mlflow.exe can be found running 
+```bash
+python -m site --user-base
+```
+
+### Download example data and models from kaggle
+
+The data pipline and tracking server are not set up fully. A temporary solution to run an example is to download preprocessed bird call data and model artifacts of a pre-trained model.
+
+The bird call data is in .wav format and resampled to 16kHz for three different birds and can be used as input to perform model inference. The the zipped data can be downloaded here:
+https://www.kaggle.com/datasets/emilcode/nightingale-minimal-example
+
+The pre-trained model is stored in a mlflow file-based meta store and in an artifact store. The zipped folder containing them can be downloaded here:
+https://www.kaggle.com/models/emilcode/nightingale
+
+After downloading the folders unzip them.
+
+### Run mlflow tracking server
+Open the bash/Git bash and change the directory to the unzipped folder containing the model.
+```bash
+# Change to directory containing the local mlflow tracking server state 
+cd LocalMLflowTrackingServer
+
+# Run the tracking server locally and accessible for the app from within a docker container
+mlflow server --host 0.0.0.0 --port 5757
+``` 
+
+To check if the server is up and running, open a browser window a type "localhost:5757" into the address bar. You should see the UI for the MLflow server.
+<p align="center">
+  <img src="doc/mlflow_server_screenshot.png" alt="mlflow server Screenshot" width="800"/>
+</p>
 
 
-# Run example deployment of nightingale bird call classifier on localhost
+### Clone git repository and run application
 
+As soon as the mlflow tracking server is up and running, the pre-trained model is accessible for the application. To run the application locally, clone the repository, start the docker engine and then build and run the production docker container.
+
+```bash
+# Clone the repository
+git clone https://github.com/emilcode-dev/nightingale
+
+# Navigate to the project folder
+cd nightingale
+
+# Build container image
+docker build -t nightingale-service:latest .
+
+# Run the application
+docker run -p 8080:8080 nightingale-service:latest
+```
+
+After the application has started, open your browser and enter "http://localhost:8080/static/index.html". You should be seeing the following locally hosted website. To try it out upload a .wav file of one of the three different brid species downloaded before.
+Currently only the three bird types form the minimal example data are supported. More will be supported in the future with a more solid data pipeline. 😁
+<p align="center">
+  <img src="doc/webpage_screenshot.png" alt="Webpage Screenshot" width="800"/>
+</p>
+
+## Developers
+
+Developers are encouraged to use the provided development container.
+
+To run the dev container follow these steps:
+1. Install VS Code: https://code.visualstudio.com/download.
+2. Install Docker Desktop, if not done yet: https://www.docker.com/products/docker-desktop/.
+3. Start VS Code and install the extension dev containers (ms-vscode-remote.remote-containers).
+4. Restart VS Code to make sure the extension is active.
+5. In VS Code go to File -> Open Folder and open the top level folder of this repository in VS Code.
+6. VS Code will ask you to reopen the folder in the dev container, which you should do.
+
+This will open and connect to the development container defined in .devcontainer/devcontainer.json and .devcontainer/Dockerfile. From then on you are working within the container and you are up and running.
+
+More information on dev containers can be found here: https://code.visualstudio.com/docs/devcontainers/tutorial
+
+
+### Load data
+In this current moment the data pipeline is not ready yet. Data is preprocessed and stored locally. 😬
+
+### Train model
+Open and run notebooks/train_nightingale.ipynb.
+
+### Run example deployment of nightingale bird call classifier on localhost
+
+```bash
 cd app/fastapi
 uvicorn main:app --reload --host 127.0.0.1 --port 8000
+```
 
-( or uvicorn app.fastapi.main:app --reload --host 127.0.0.1 --port 8000, but for that the import of the classifier_head model has to be done relativ e to the path etc. )
-
+The application API can be tested with
+```bash
 curl -X POST   "http://127.0.0.1:8080/predict/"   -H "accept: application/json"   -H "Content-Type: multipart/form-data"
- -F "file=@data/birdclef-2024/train_audio_16/cohcuc1/XC19645.wav;type=audio/wav"
+ -F "file=@<path to audio data>XC19645.wav;type=audio/wav"
+ ```
 
+## 🤝 Contributing
 
-# Deploy docker container with running application
+Contributions are welcome! 🎉
 
-cd nightingale
-docker build -t nightingale-service:latest .
-docker run -p 8080:8080 nightingale-service:latest
-http://localhost:8080
-(only works if there is a bird_classifier_head.keras in the toplevel directory of the repository)
+1. Fork the project and clone it
+2. Create a new branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'Add new feature'`)
+4. Push to your branch (`git push origin feature/your-feature`)
+5. Open a Pull Request
 
+Contributors: Ephraim Eckl, David Pellhammer
 
-# how to setup ml flow tracking server on your local machine 
-On windows:
-* Install chocolatey package manager
-    - Follow installation instructions as decribed here: https://chocolatey.org/install?_gl=1*13ngmui*_ga*MTIyMDc5OTIxMC4xNzU3OTM4NDcx*_ga_0WDD29GGN2*czE3NTc5Mzg0NzAkbzEkZzEkdDE3NTc5Mzg1MzIkajYwJGwwJGgw
-* Install python:
-    - Open cmd window with admin rights, then run:
-    ```
-    choco install python
-    ```
-    - Close and reopen cmd window (no admin rights required here)
-    ```
-    pip install mlflow
-    ```
-* If not already done, add the folder with the mlflow.exe to  the environment variable path 
-    Run the following command to find the folder (should return something like: C:\Users\<YourUser>\AppData\Roaming\Python\Python39\Scripts)
-    ```
-    python -m site --user-base
-    ```
-* Run local ml flow tracking server
-    ```
-    mlflow server --host 127.0.0.1 --port 5757
-    ```
-    or to access it from the docker dev container (check [Mlflow](https://www.mlflow.org/docs/latest/ml/tracking/server/#tracking-auth) for security considerations)
-    ```
-    mlflow server --host 0.0.0.0 --port 5757
-    ```
+<!-- ## 🧪 Testing
 
-# connect to ml flow server from within the dev container
+```bash
+# Run tests
+npm test   # or pytest
+``` -->
 
-TODO
-* pin python version
-* define dev and production dependencies in pyproject.toml
-* setup local ml flow tracking server
-* load model from versioned model artifacts on tracking server/registry of ml flow
-* clean repo
-* add textual content and visually appealing content to readme
-* sphinx documentation
-* pytests
-* create multi stage docker container
-* implement CI/CD for build, test and deployments on github actions
-* terraform deployment on cloud
-* consider security aspects of application, eg user and attack surface of production container (check devops on geeks4geeks)
-* Kubernetes
-* describe the URI for the tracking server somewhere else than in the python scripts.
-* create a config file for the hyperparameters
-* Integrate ONNX 
-* Check usage of Kubeflow
+## 🛣 Roadmap
 
-Idea for edge:
+* [x] Setup local MLflow tracking server
+* [ ] Setup remote MLflow tracking server in the cloud or use databricks.
+* [ ] Setup Github actions pipeline
+* [ ] Use DVC for data versioning
+* [ ] Integrate ONNX
+* [ ] IaC with Terraform
+* [ ] Container orchestration with K8s
+* [ ] Consider aspects of DevSecOps
 
-Data relevance & quality:
-Spacial:
-* Train the model used for edge deployment with the bird species that are most likely to occur in the geographic region of the location the edge device will be deployed. 
+<!-- ## 📝 Changelog
 
-Temporal:
-* different seasons come with different species as some birds migrate and some birds don't. Or just marginalize that temporal component out by using the data of one yearly cycle
+See [CHANGELOG.md](CHANGELOG.md) for version history.
+ -->
 
-Data Lifecycle:
-* Do the types of species in a specific region change over time? E.g. due to climate change or other environmental impacts that make them migrate permanentely
-* Perhaps it could also be beneficial to deploy a model on the edge in a specific location and have it predict the species it has been trained on and a class for species that are not part of the species it has be trained on --> all other possible sounds or species.
-These outcomes could be sent to a server and be classified by a huge net, that knows much more or even all species around the world. Then these predictions together with the uploaded inputs could be used to retrain/update the deployed model at the location the data was recorded, that could help with data drift in general.
-* Obtain background noise or in general other sounds to augment the data used to train the specific models.
+## 📜 License
 
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgements
+* [YAMNet](https://github.com/tensorflow/models/tree/master/research/audioset/yamnet)
