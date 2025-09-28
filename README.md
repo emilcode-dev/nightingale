@@ -12,7 +12,7 @@ A lightweight, real-time bird call classifier with a sleek web app, ready for ED
 
 ❗❗ This is a recently kicked off project and a work in progress. It is meant to become a bird call recognition app that can both run on the cloud and on the edge eventually. ❗❗
 
-## Getting Started
+## 🚀 Getting Started
 
 The following sections show which tools need to be installed, how to download the example data and model, how to run an MLflow tracking server with the downloaded model locally and shwo how to run the dockerized application.
 
@@ -82,7 +82,7 @@ Currently only the three bird types form the minimal example data are supported.
   <img src="doc/webpage_screenshot.png" alt="Webpage Screenshot" width="800"/>
 </p>
 
-## Developers
+## 📟 Developers
 
 Developers are encouraged to use the provided development container.
 
