@@ -14,7 +14,7 @@ A lightweight, real-time bird call classifier with a sleek web app, ready for ED
 
 ## Getting Started
 
-
+The following sections show which tools need to be installed, how to download the example data and model, how to run an MLflow tracking server with the downloaded model locally and shwo how to run the dockerized application.
 
 ### Prerequisites
 
@@ -84,6 +84,20 @@ Currently only the three bird types form the minimal example data are supported.
 
 ## Developers
 
+Developers are encouraged to use the provided development container.
+
+To run the dev container follow these steps:
+1. Install VS Code: https://code.visualstudio.com/download.
+2. Install Docker Desktop, if not done yet: https://www.docker.com/products/docker-desktop/.
+3. Start VS Code and install the extension dev containers (ms-vscode-remote.remote-containers).
+4. Restart VS Code to make sure the extension is active.
+5. In VS Code go to File -> Open Folder and open the top level folder of this repository in VS Code.
+6. VS Code will ask you to reopen the folder in the dev container, which you should do.
+
+This will open and connect to the development container defined in .devcontainer/devcontainer.json and .devcontainer/Dockerfile. From then on you are working within the container and you are up and running.
+
+More information on dev containers can be found here: https://code.visualstudio.com/docs/devcontainers/tutorial
+
 
 ### Load data
 In this current moment the data pipeline is not ready yet. Data is preprocessed and stored locally. 😬
@@ -98,74 +112,11 @@ cd app/fastapi
 uvicorn main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-( or uvicorn app.fastapi.main:app --reload --host 127.0.0.1 --port 8000, but for that the import of the classifier_head model has to be done relativ e to the path etc. )
-
+The application API can be tested with
+```bash
 curl -X POST   "http://127.0.0.1:8080/predict/"   -H "accept: application/json"   -H "Content-Type: multipart/form-data"
- -F "file=@data/birdclef-2024/train_audio_16/cohcuc1/XC19645.wav;type=audio/wav"
-
-# how to setup ml flow tracking server on your local machine 
-On windows:
-* Install chocolatey package manager
-    - Follow installation instructions as decribed here: https://chocolatey.org/install?_gl=1*13ngmui*_ga*MTIyMDc5OTIxMC4xNzU3OTM4NDcx*_ga_0WDD29GGN2*czE3NTc5Mzg0NzAkbzEkZzEkdDE3NTc5Mzg1MzIkajYwJGwwJGgw
-* Install python:
-    - Open cmd window with admin rights, then run:
-    ```
-    choco install python
-    ```
-    - Close and reopen cmd window (no admin rights required here)
-    ```
-    pip install mlflow
-    ```
-* If not already done, add the folder with the mlflow.exe to  the environment variable path 
-    Run the following command to find the folder (should return something like: C:\Users\<YourUser>\AppData\Roaming\Python\Python39\Scripts)
-    ```
-    python -m site --user-base
-    ```
-* Run local ml flow tracking server
-    ```
-    mlflow server --host 127.0.0.1 --port 5757
-    ```
-    or to access it from the docker dev container (check [Mlflow](https://www.mlflow.org/docs/latest/ml/tracking/server/#tracking-auth) for security considerations)
-    ```
-    mlflow server --host 0.0.0.0 --port 5757
-    ```
-
-
-  docker run -it --rm -p 5000:5000 \
-  -v $(pwd)/LocalMLflowTrackingServer:/LocalMLflowTrackingServer/ \
-  ghcr.io/mlflow/mlflow:v2.0.1 mlflow server --host 0.0.0.0 --port 5000 --default-artifact-root LocalMLflowTrackingServer/mlartifacts
-
-  docker run -it --rm -p 5757:5757 \
-  -v $(pwd)/LocalMLflowTrackingServer/mlruns:/mlflow/mlruns \
-  -v $(pwd)/LocalMLflowTrackingServer/mlartifacts:/mlflow/mlartifacts \
-  ghcr.io/mlflow/mlflow:v2.0.1 \
-  mlflow server \
-    --host 0.0.0.0 \
-    --port 5757 \
-    --default-artifact-root /mlflow/mlartifacts \
-    --backend-store-uri /mlflow/mlruns
-
-
-docker run -it --rm -p 5757:5757 \
-  -v "$(pwd)/LocalMLflowTrackingServer/mlruns:/mlflow/mlruns" \
-  -v "$(pwd)/LocalMLflowTrackingServer/mlartifacts:/mlflow/mlartifacts" \
-  ghcr.io/mlflow/mlflow:v2.0.1 \
-  mlflow server \
-    --host 0.0.0.0 \
-    --port 5757 \
-    --default-artifact-root /mlflow/mlartifacts \
-    --backend-store-uri file:/mlflow/mlruns
-
-docker run -it --rm -p 5757:5757 -v "$(pwd)/LocalMLflowTrackingServer/mlruns:/mlflow/mlruns" -v "$(pwd)/LocalMLflowTrackingServer/mlartifacts:/mlflow/mlartifacts" ghcr.io/mlflow/mlflow:v3.3.2 mlflow server --host 0.0.0.0 --port 5757 --default-artifact-root /mlflow/mlartifacts --backend-store-uri file:/mlflow/mlruns
-<!-- ## 📡 API / Features
-
-*Describe the core modules, endpoints, or features.*
-
-* Feature 1
-* Feature 2
-* Feature 3
-
---- -->
+ -F "file=@<path to audio data>XC19645.wav;type=audio/wav"
+ ```
 
 ## 🤝 Contributing
 
@@ -189,7 +140,7 @@ npm test   # or pytest
 ## 🛣 Roadmap
 
 * [x] Setup local MLflow tracking server
-* [ ] Setup remote MLflow tracking server in the cloud
+* [ ] Setup remote MLflow tracking server in the cloud or use databricks.
 * [ ] Setup Github actions pipeline
 * [ ] Use DVC for data versioning
 * [ ] Integrate ONNX
@@ -208,5 +159,3 @@ This project is licensed under the **MIT License** – see the [LICENSE](LICENSE
 
 ## 🙏 Acknowledgements
 * [YAMNet](https://github.com/tensorflow/models/tree/master/research/audioset/yamnet)
-
-<!-- ## 📬 Contact -->
