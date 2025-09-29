@@ -1,17 +1,17 @@
-numpy
-scipy       # pip installiert automatisch aktuelle stabile Version
-pandas      # idem
-scikit-learn  # idem
-matplotlib    # idem
-seaborn       # idem
-ipykernel     # idem
-ipywidgets    # idem
-tensorflow
-tensorflow_io
-tensorflow-hub
-tflite-runtime
-pydub     # pip installiert automatisch aktuelle stabile Version
-mlflow
-fastapi
-uvicorn
-python-multipart
+numpy==2.3.3
+scipy==1.16.2       # pip installiert automatisch aktuelle stabile Version
+pandas==2.3.2      # idem
+scikit-learn==1.7.2
+matplotlib==3.10.6    # idem
+seaborn==0.13.2       # idem
+ipykernel==6.30.1     # idem
+ipywidgets==8.1.7    # idem
+tensorflow==2.20.0
+tensorflow-io==0.37.1
+tensorflow-hub==0.16.1
+tflite-runtime==2.14.0
+pydub==0.25.1     # pip installiert automatisch aktuelle stabile Version
+mlflow==3.4.0
+fastapi==0.116.2
+uvicorn==0.35.0
+python-multipart==0.0.20
