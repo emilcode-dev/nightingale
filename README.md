@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="doc/nightingale_logo.png" alt="Nightingale Logo" width="200"/>
+  <img src="docs/images/nightingale_logo.png" alt="Nightingale Logo" width="200"/>
 </p>
 
 # Nightingale - Discover birds by sound!
@@ -54,7 +54,7 @@ mlflow server --host 0.0.0.0 --port 5757
 
 To check if the server is up and running, open a browser window a type "localhost:5757" into the address bar. You should see the UI for the MLflow server.
 <p align="center">
-  <img src="doc/mlflow_server_screenshot.png" alt="mlflow server Screenshot" width="800"/>
+  <img src="docs/images/mlflow_server_screenshot.png" alt="mlflow server Screenshot" width="800"/>
 </p>
 
 
@@ -79,7 +79,7 @@ docker run -p 8080:8080 nightingale-service:latest
 After the application has started, open your browser and enter "http://localhost:8080/static/index.html". You should be seeing the following locally hosted website. To try it out upload a .wav file of one of the three different brid species downloaded before.
 Currently only the three bird types form the minimal example data are supported. More will be supported in the future with a more solid data pipeline. 😁
 <p align="center">
-  <img src="doc/webpage_screenshot.png" alt="Webpage Screenshot" width="800"/>
+  <img src="docs/images/webpage_screenshot.png" alt="Webpage Screenshot" width="800"/>
 </p>
 
 ## 📟 Developers

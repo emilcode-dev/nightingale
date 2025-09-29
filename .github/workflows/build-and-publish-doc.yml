@@ -1,0 +1,37 @@
+name: Build and Deploy Docs
+
+on:
+  push:
+    branches: 
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install sphinx
+        run: pip install sphinx==8.2.3 sphinx-rtd-theme==3.0.2
+
+      - name: Build Sphinx HTML
+        run: sphinx-build -b html ./source ./build
+        working-directory: ./docs
+
+  deploy-to-ghpages:
+    needs: build-docs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Deploy documentation to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/build/html
