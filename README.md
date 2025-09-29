@@ -3,8 +3,8 @@
 </p>
 
 # Nightingale - Discover birds by sound!
-
-TODO: Tagline here
+[![docs](https://img.shields.io/badge/docs-online-brightgreen)](https://emilcode-dev.github.io/nightingale/)
+[![Build and Deploy Docs](https://github.com/emilcode-dev/nightingale/actions/workflows/build-and-publish-doc.yml/badge.svg)](https://github.com/emilcode-dev/nightingale/actions/workflows/build-and-publish-doc.yml)
 
 A lightweight, real-time bird call classifier with a sleek web app, ready for EDGE deployment and instant audio recognition anywhere.
 
