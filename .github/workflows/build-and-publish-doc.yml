@@ -10,8 +10,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-docs:
+  build-and-deploy-docs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -24,12 +26,6 @@ jobs:
         run: sphinx-build -b html ./source ./build
         working-directory: ./docs
 
-  deploy-to-ghpages:
-    needs: build-docs
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
       - name: Deploy documentation to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
