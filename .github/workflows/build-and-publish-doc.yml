@@ -27,8 +27,8 @@ jobs:
   deploy-to-ghpages:
     needs: build-docs
     runs-on: ubuntu-latest
-    # permissions:
-    #   contents: write
+    permissions:
+      contents: write
     steps:
       - name: Deploy documentation to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
