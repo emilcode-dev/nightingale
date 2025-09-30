@@ -141,7 +141,6 @@ npm test   # or pytest
 
 * [x] Setup local MLflow tracking server
 * [ ] Setup remote MLflow tracking server in the cloud or use databricks.
-* [ ] Setup Github actions pipeline
 * [ ] Use DVC for data versioning
 * [ ] Integrate ONNX
 * [ ] IaC with Terraform
