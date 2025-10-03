@@ -1,7 +1,3 @@
-[build-system]
-requires = ["setuptools>=42", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "nightingale"
 version = "0.1.0"
@@ -11,11 +7,44 @@ authors = [
     { name= "David Pellhammer"}
 ]
 readme = "README.md"
-requires-python = ">=3.8"
-dependencies = []
+license-files = [ "LICENSE" ]
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "tensorflow (==2.20.0)",
+    "tensorflow-hub (==0.16.1)",
+    "fastapi (==0.116.2)",
+    "mlflow (==3.4.0)",
+    "uvicorn (==0.37.0)",
+    "python-multipart (==0.0.20)"
+]
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[dependency-groups]
+doc = [
+    "sphinx (==8.2.3)",
+    "sphinx-rtd-theme (==3.0.2)"
+]
+dev = [
+    "numpy (==2.3.3)",
+    "scikit-learn (==1.7.2)",
+    "matplotlib (==3.10.6)",
+    "seaborn (==0.13.2)",
+    "ipykernel (==6.30.1)",
+    "ipywidgets (==8.1.7)",
+    "tensorflow (==2.20.0)",
+    "tensorflow-io (==0.37.1)",
+    "tensorflow-hub (==0.16.1)",
+    "pydub (==0.25.1)"
+]
+test = [
+        "pytest (==8.4.2)"
+]
+
+[project.urls]
+repository = "https://github.com/emilcode-dev/nightingale"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 minversion = "8.0"
