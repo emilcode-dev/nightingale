@@ -12,6 +12,10 @@ A lightweight, real-time bird call classifier with a sleek web app, ready for ED
 
 ❗❗ This is a recently kicked off project and a work in progress. It is meant to become a bird call recognition app that can both run on the cloud and on the edge eventually. ❗❗
 
+This repository is going to be split in different repositories soon.
+- nightingale (model and python package)
+- nightingale-backend (backend with RESTful API using FastAPI, Docker, uvicorn, ...)
+
 ## 🚀 Getting Started
 
 The following sections show which tools need to be installed, how to download the example data and model, how to run an MLflow tracking server with the downloaded model locally and shwo how to run the dockerized application.
