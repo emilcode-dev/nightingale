@@ -7,14 +7,17 @@ from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 # from nightingale.model.bird_call_classifier import BirdCallClassifier
 from nightingale.model.classifier_head import ClassifierHead
+from dotenv import load_dotenv
+
 
 yamnet_model = hub.load('https://tfhub.dev/google/yamnet/1')
 
 # Load model of classifier head from ml flow registry
-model_name = 'Reg-Bird-Call-Classifier-Head'
+model_name = 'nightingale-dev.default.Reg-Bird-Call-Classifier-Head'
 model_version_alias = "challenger"
-TRACKING_URI_LOCAL = "http://host.docker.internal:5757"
-mlflow.set_tracking_uri(TRACKING_URI_LOCAL)
+
+# Load environment variables from .env file containing MLflow tracking URI and token
+load_dotenv()
 
 # Get the model version using a model URI
 model_uri = f"models:/{model_name}@{model_version_alias}"

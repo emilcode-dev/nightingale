@@ -1,0 +1,7 @@
+tensorflow==2.20.0
+tensorflow-hub==0.16.1
+fastapi==0.116.2
+mlflow[databricks]==3.4.0
+uvicorn==0.37.0
+python-multipart==0.0.20
+python-dotenv==1.1.1

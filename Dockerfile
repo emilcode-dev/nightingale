@@ -25,6 +25,12 @@ RUN pip install --no-cache-dir .
 
 # Ensure logs are flushed immediately
 ENV PYTHONUNBUFFERED=1
+ENV DATABRICKS_TOKEN= ...
+ENV DATABRICKS_HOST=https://....cloud.databricks.com
+ENV MLFLOW_TRACKING_URI=databricks
+ENV MLFLOW_REGISTRY_URI=databricks-uc
+ENV MLFLOW_EXPERIMENT_ID=...
+
 
 EXPOSE 8080
 
