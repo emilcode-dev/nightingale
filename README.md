@@ -56,6 +56,11 @@ TODO!!!!
 ### Default tracking server
 If you don't configure/set the MLFLOW_TRACKING_URI to a specific location, MLflow will create a mlruns directory in the CWD or your python run (e.g. next to the notebook if mlfow run has been started for the notebook).
 
+### Use .env file to configure mlflow tracking server
+MLFLOW_TRACKING_URI=<your-tracking-uri> (local file system or url to remote tracking server)
+MLFLOW_EXPERIMENT_ID=<experiment_id>
+
+### Set tracking server during container startup
 Optional: To change the MLFLOW_TRACKING_URI during container startup add something like
     "containerEnv": {
         "MLFLOW_TRACKING_URI": "./mlruns"
