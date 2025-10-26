@@ -46,6 +46,44 @@ https://www.kaggle.com/models/emilcode/nightingale
 
 After downloading the folders unzip them.
 
+### How to set up a remote tracking server on your local host system
+https://mlflow.org/docs/3.1.3/ml/tracking/tutorials/remote-server/
+
+https://mlflow.org/docs/3.1.3/ml/tracking/server/
+
+TODO!!!!
+
+### Default tracking server
+If you don't configure/set the MLFLOW_TRACKING_URI to a specific location, MLflow will create a mlruns directory in the CWD or your python run (e.g. next to the notebook if mlfow run has been started for the notebook).
+
+### Use .env file to configure mlflow tracking server
+MLFLOW_TRACKING_URI=<your-tracking-uri> (local file system or url to remote tracking server)
+MLFLOW_EXPERIMENT_ID=<experiment_id>
+
+### Set tracking server during container startup
+Optional: To change the MLFLOW_TRACKING_URI during container startup add something like
+    "containerEnv": {
+        "MLFLOW_TRACKING_URI": "./mlruns"
+    },
+to the .devcontainer.json file.
+
+### Setup mlflow to databricks
+If you have a databricks account and you prefere to track your experiments and register your models to the databricks tracking server and unity catalog your can set up the connection doing the following.
+
+https://docs.databricks.com/aws/en/mlflow3/genai/getting-started/tracing/tracing-ide?language=Use+a+.env+file
+
+Create an .env file in your project root and add:
+'''
+DATABRICKS_TOKEN=<your-databricks-token>
+DATABRICKS_HOST=<host-url-of-your-databricks-cloud> (something like: https://abc-a1234b12-a123.cloud.databricks.com)
+MLFLOW_TRACKING_URI=databricks
+MLFLOW_REGISTRY_URI=databricks-uc (for unity catalog)
+MLFLOW_EXPERIMENT_ID=<experiment_id>
+'''
+
+The .env file will be ignored by git by default, but make sure to NOT commit and push your .env file as it contains credentials not meant to be public. 
+
+
 ### Run mlflow tracking server
 Open the bash/Git bash and change the directory to the unzipped folder containing the model.
 ```bash
