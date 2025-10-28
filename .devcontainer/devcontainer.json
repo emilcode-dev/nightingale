@@ -5,6 +5,9 @@
         "context": "..",
         "target": "dev"
     },
+    "mounts": [
+        "source=,target=/workspaces/nightingale/.venv,type=volume"
+    ],
     "customizations": {
         "vscode": {
             "extensions": [
@@ -24,6 +27,5 @@
                 }
         }
     },
-    "postCreateCommand": "poetry install && echo 'nightingale dev container is ready!'"
+    "postCreateCommand": "uv sync --locked && echo 'nightingale dev container is ready!'"
 }
-
