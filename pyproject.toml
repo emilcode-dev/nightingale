@@ -16,8 +16,15 @@ dependencies = [
     "mlflow[databricks] (>=3.4.0,<4.0.0)",
     "uvicorn (==0.37.0)",
     "python-multipart (==0.0.20)",
-    "python-dotenv (>=1.1.1,<2.0.0)"
+    "python-dotenv (>=1.1.1,<2.0.0)",
+    "notebook",
+    "kedro~=1.0.0"
 ]
+
+[project.scripts]
+"nightingale" = "nightingale.__main__:main"
+
+[project.entry-points."kedro.hooks"]
 
 [dependency-groups]
 doc = [
@@ -37,8 +44,43 @@ dev = [
     "pydub (==0.25.1)"
 ]
 test = [
-        "pytest (==8.4.2)"
+        "pytest-cov~=3.0",
+        "pytest-mock>=1.7.1, <2.0",
+        "pytest (==8.4.2)",
+        "ruff~=0.12.0"
 ]
+
+[tool.kedro]
+package_name = "nightingale"
+project_name = "nightingale"
+kedro_init_version = "1.0.0"
+tools = "['Linting', 'Testing', 'Custom Logging', 'Documentation', 'Data Structure']"
+example_pipeline = "False"
+source_dir = "src"
+
+[tool.coverage.report]
+fail_under = 0
+show_missing = true
+exclude_lines = ["pragma: no cover", "raise NotImplementedError"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff]
+line-length = 88
+show-fixes = true
+
+[tool.ruff.lint]
+select = [
+    "F",   # Pyflakes
+    "W",   # pycodestyle
+    "E",   # pycodestyle
+    "I",   # isort
+    "UP",  # pyupgrade
+    "PL",  # Pylint
+    "T201", # Print Statement
+]
+ignore = ["E501"]  # Ruff format takes care of line-too-long
 
 [project.urls]
 repository = "https://github.com/emilcode-dev/nightingale"
@@ -48,8 +90,6 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.pytest.ini_options]
-minversion = "8.0"
-addopts = "-ra -q"
-testpaths = [
-    "tests"
-]
+addopts = """
+--cov-report term-missing \
+--cov src/nightingale -ra"""
